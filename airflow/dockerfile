@@ -1,0 +1,78 @@
+
+FROM apache/airflow:2.8.2
+
+ENV AIRFLOW_HOME=/opt/airflow
+
+USER root
+RUN apt-get update -qq && apt-get install vim -qqq
+# git gcc g++ -qqq
+
+
+# RUN apt-get update -qq \
+#     && sudo apt-get install -y --no-install-recommends \
+#     openjdk-11-jre-headless \
+#     && apt-get autoremove -yqq --purge \
+#     && apt-get clean \
+#     && rm -rf /var/lib/apt/lists/*
+# ENV JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+# ENV PATH="${JAVA_HOME}/bin/:${PATH}"
+
+ENV HOME=/opt/spark
+RUN DOWNLOAD_URL="https://download.java.net/java/GA/jdk11/9/GPL/openjdk-11.0.2_linux-x64_bin.tar.gz" \
+    && TMP_DIR="$(mktemp -d)" \
+    && mkdir -p "${HOME}" \
+    && cd "${HOME}" \
+    && curl -fL "${DOWNLOAD_URL}" --output "${TMP_DIR}/spark.tgz" \
+    && mkdir java-11-openjdk-amd64 \
+    && tar xzf "${TMP_DIR}/spark.tgz" -C "${HOME}/java-11-openjdk-amd64" --strip-components=1 \
+    # && tar xzfv openjdk-11.0.2_linux-x64_bin.tar.gz \
+    # && rm openjdk-11.0.2_linux-x64_bin.tar.gz \
+    && rm -rf "${TMP_DIR}"
+ENV JAVA_HOME="${HOME}/java-11-openjdk-amd64"
+ENV PATH="${JAVA_HOME}/bin/:${PATH}"
+WORKDIR $AIRFLOW_HOME
+
+
+
+
+# Ref: https://airflow.apache.org/docs/docker-stack/recipes.html
+
+SHELL ["/bin/bash", "-o", "pipefail", "-e", "-u", "-x", "-c"]
+
+# ARG CLOUD_SDK_VERSION=322.0.0
+# ENV GCLOUD_HOME=/home/google-cloud-sdk
+
+# ENV PATH="${GCLOUD_HOME}/bin/:${PATH}"
+
+# RUN DOWNLOAD_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz" \
+#     && TMP_DIR="$(mktemp -d)" \
+#     && curl -fL "${DOWNLOAD_URL}" --output "${TMP_DIR}/google-cloud-sdk.tar.gz" \
+#     && mkdir -p "${GCLOUD_HOME}" \
+#     && tar xzf "${TMP_DIR}/google-cloud-sdk.tar.gz" -C "${GCLOUD_HOME}" --strip-components=1 \
+#     && "${GCLOUD_HOME}/install.sh" \
+#        --bash-completion=false \
+#        --path-update=false \
+#        --usage-reporting=false \
+#        --quiet \
+#     && rm -rf "${TMP_DIR}" \
+#     && gcloud --version
+
+
+ARG SPARK_VERSION=3.5.1
+RUN mkdir -p "${HOME}/spark-3.5.1-bin-hadoop3"
+RUN DOWNLOAD_URL="https://dlcdn.apache.org/spark/spark-${SPARK_VERSION}/spark-${SPARK_VERSION}-bin-hadoop3.tgz" \
+    && TMP_DIR="$(mktemp -d)" \
+    && curl -fL "${DOWNLOAD_URL}" --output "${TMP_DIR}/spark.tgz" \
+    && cd "${HOME}" \
+    && tar xzf "${TMP_DIR}/spark.tgz" -C "${HOME}/spark-3.5.1-bin-hadoop3" --strip-components=1 \
+    && rm -rf "${TMP_DIR}"
+
+ENV SPARK_HOME="${HOME}/spark-3.5.1-bin-hadoop3"
+ENV PATH="${SPARK_HOME}/bin:${PATH}"
+
+ENV PYTHONPATH="${SPARK_HOME}/python/:$PYTHONPATH"
+ENV PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9.7-src.zip:$PYTHONPATH"
+WORKDIR $AIRFLOW_HOME
+
+
+USER $AIRFLOW_UID
