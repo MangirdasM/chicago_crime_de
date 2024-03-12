@@ -1,0 +1,77 @@
+[2024-03-11T10:58:53.712+0000] {processor.py:161} INFO - Started process (PID=46) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T10:58:53.713+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T10:58:53.716+0000] {logging_mixin.py:188} INFO - [2024-03-11T10:58:53.715+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T10:58:53.736+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T10:58:53.789+0000] {logging_mixin.py:188} INFO - [2024-03-11T10:58:53.781+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T10:58:53.859+0000] {logging_mixin.py:188} INFO - [2024-03-11T10:58:53.841+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T10:58:53.924+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.215 seconds
+[2024-03-11T10:59:24.569+0000] {processor.py:161} INFO - Started process (PID=101) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T10:59:24.570+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T10:59:24.572+0000] {logging_mixin.py:188} INFO - [2024-03-11T10:59:24.572+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T10:59:24.587+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T10:59:24.700+0000] {logging_mixin.py:188} INFO - [2024-03-11T10:59:24.700+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T10:59:24.711+0000] {logging_mixin.py:188} INFO - [2024-03-11T10:59:24.711+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T10:59:24.731+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.165 seconds
+[2024-03-11T10:59:54.852+0000] {processor.py:161} INFO - Started process (PID=156) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T10:59:54.856+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T10:59:54.861+0000] {logging_mixin.py:188} INFO - [2024-03-11T10:59:54.860+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T10:59:54.889+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T10:59:54.969+0000] {logging_mixin.py:188} INFO - [2024-03-11T10:59:54.967+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T10:59:55.006+0000] {logging_mixin.py:188} INFO - [2024-03-11T10:59:55.003+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T10:59:55.047+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.198 seconds
+[2024-03-11T11:00:25.384+0000] {processor.py:161} INFO - Started process (PID=211) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T11:00:25.385+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T11:00:25.387+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:00:25.386+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T11:00:25.400+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T11:00:25.417+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:00:25.417+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T11:00:25.431+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:00:25.430+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T11:00:25.449+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.067 seconds
+[2024-03-11T11:00:56.258+0000] {processor.py:161} INFO - Started process (PID=266) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T11:00:56.259+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T11:00:56.261+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:00:56.261+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T11:00:56.276+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T11:00:56.309+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:00:56.308+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T11:00:56.321+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:00:56.320+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T11:00:56.342+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.086 seconds
+[2024-03-11T11:01:27.321+0000] {processor.py:161} INFO - Started process (PID=321) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T11:01:27.322+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T11:01:27.324+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:01:27.323+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T11:01:27.337+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T11:01:27.355+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:01:27.355+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T11:01:27.369+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:01:27.369+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T11:01:27.386+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.068 seconds
+[2024-03-11T11:01:57.603+0000] {processor.py:161} INFO - Started process (PID=376) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T11:01:57.604+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T11:01:57.606+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:01:57.606+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T11:01:57.622+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T11:01:57.641+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:01:57.640+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T11:01:57.660+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:01:57.659+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T11:01:57.683+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.082 seconds
+[2024-03-11T11:02:27.931+0000] {processor.py:161} INFO - Started process (PID=431) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T11:02:27.932+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T11:02:27.934+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:02:27.933+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T11:02:27.946+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T11:02:27.963+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:02:27.963+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T11:02:27.978+0000] {logging_mixin.py:188} INFO - [2024-03-11T11:02:27.977+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T11:02:27.997+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.070 seconds
+[2024-03-11T13:02:36.980+0000] {processor.py:161} INFO - Started process (PID=48) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T13:02:36.982+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T13:02:36.984+0000] {logging_mixin.py:188} INFO - [2024-03-11T13:02:36.983+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T13:02:37.044+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T13:02:37.276+0000] {logging_mixin.py:188} INFO - [2024-03-11T13:02:37.275+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T13:02:37.303+0000] {logging_mixin.py:188} INFO - [2024-03-11T13:02:37.299+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T13:02:37.348+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.372 seconds
+[2024-03-11T13:03:07.973+0000] {processor.py:161} INFO - Started process (PID=104) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T13:03:07.978+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T13:03:07.982+0000] {logging_mixin.py:188} INFO - [2024-03-11T13:03:07.982+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T13:03:07.994+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T13:03:08.028+0000] {logging_mixin.py:188} INFO - [2024-03-11T13:03:08.028+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T13:03:08.042+0000] {logging_mixin.py:188} INFO - [2024-03-11T13:03:08.042+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T13:03:08.096+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.128 seconds
+[2024-03-11T13:03:38.147+0000] {processor.py:161} INFO - Started process (PID=159) to work on /opt/airflow/dags/create_dag.py
+[2024-03-11T13:03:38.148+0000] {processor.py:830} INFO - Processing file /opt/airflow/dags/create_dag.py for tasks to queue
+[2024-03-11T13:03:38.150+0000] {logging_mixin.py:188} INFO - [2024-03-11T13:03:38.150+0000] {dagbag.py:540} INFO - Filling up the DagBag from /opt/airflow/dags/create_dag.py
+[2024-03-11T13:03:38.162+0000] {processor.py:840} INFO - DAG(s) 'create_simple_table' retrieved from /opt/airflow/dags/create_dag.py
+[2024-03-11T13:03:38.179+0000] {logging_mixin.py:188} INFO - [2024-03-11T13:03:38.178+0000] {dag.py:3047} INFO - Sync 1 DAGs
+[2024-03-11T13:03:38.191+0000] {logging_mixin.py:188} INFO - [2024-03-11T13:03:38.191+0000] {dag.py:3834} INFO - Setting next_dagrun for create_simple_table to None, run_after=None
+[2024-03-11T13:03:38.224+0000] {processor.py:183} INFO - Processing /opt/airflow/dags/create_dag.py took 0.079 seconds
