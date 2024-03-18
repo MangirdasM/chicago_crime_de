@@ -1,0 +1,27 @@
+[2024-03-12T10:52:03.526+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: two_separate_groups.l1_dynamic_generated_0 manual__2024-03-12T10:11:12.059013+00:00 [queued]>
+[2024-03-12T10:52:03.533+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: two_separate_groups.l1_dynamic_generated_0 manual__2024-03-12T10:11:12.059013+00:00 [queued]>
+[2024-03-12T10:52:03.534+0000] {taskinstance.py:2193} INFO - Starting attempt 5 of 5
+[2024-03-12T10:52:03.546+0000] {taskinstance.py:2214} INFO - Executing <Task(BashOperator): l1_dynamic_generated_0> on 2024-03-12 10:11:12.059013+00:00
+[2024-03-12T10:52:03.551+0000] {standard_task_runner.py:60} INFO - Started process 622 to run task
+[2024-03-12T10:52:03.554+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'two_separate_groups', 'l1_dynamic_generated_0', 'manual__2024-03-12T10:11:12.059013+00:00', '--job-id', '34', '--raw', '--subdir', 'DAGS_FOLDER/create_dag.py', '--cfg-path', '/tmp/tmpq0do4b44']
+[2024-03-12T10:52:03.556+0000] {standard_task_runner.py:88} INFO - Job 34: Subtask l1_dynamic_generated_0
+[2024-03-12T10:52:03.597+0000] {task_command.py:423} INFO - Running <TaskInstance: two_separate_groups.l1_dynamic_generated_0 manual__2024-03-12T10:11:12.059013+00:00 [running]> on host 9958f290dc4a
+[2024-03-12T10:52:03.659+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='two_separate_groups' AIRFLOW_CTX_TASK_ID='l1_dynamic_generated_0' AIRFLOW_CTX_EXECUTION_DATE='2024-03-12T10:11:12.059013+00:00' AIRFLOW_CTX_TRY_NUMBER='5' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-12T10:11:12.059013+00:00'
+[2024-03-12T10:52:03.662+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2024-03-12T10:52:03.663+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'wget -O AIRFLOW_HOME/data.csv https://data.cityofchicago.org/resource/kf95-mnd6.csv?\\$limit=300000']
+[2024-03-12T10:52:03.673+0000] {subprocess.py:86} INFO - Output:
+[2024-03-12T10:52:03.679+0000] {subprocess.py:93} INFO - AIRFLOW_HOME/data.csv: No such file or directory
+[2024-03-12T10:52:03.680+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2024-03-12T10:52:03.688+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2024-03-12T10:52:03.692+0000] {taskinstance.py:1149} INFO - Marking task as FAILED. dag_id=two_separate_groups, task_id=l1_dynamic_generated_0, execution_date=20240312T101112, start_date=20240312T105203, end_date=20240312T105203
+[2024-03-12T10:52:03.709+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 34 for task l1_dynamic_generated_0 (Bash command failed. The command returned a non-zero exit code 1.; 622)
+[2024-03-12T10:52:03.727+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-12T10:52:03.751+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

@@ -1,0 +1,29 @@
+[2024-03-18T07:56:33.850+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: two_separate_groups.delete_dataset_files_3_task manual__2024-03-18T06:40:31.356042+00:00 [queued]>
+[2024-03-18T07:56:34.033+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: two_separate_groups.delete_dataset_files_3_task manual__2024-03-18T06:40:31.356042+00:00 [queued]>
+[2024-03-18T07:56:34.037+0000] {taskinstance.py:2193} INFO - Starting attempt 3 of 3
+[2024-03-18T07:56:34.217+0000] {taskinstance.py:2214} INFO - Executing <Task(BashOperator): delete_dataset_files_3_task> on 2024-03-18 06:40:31.356042+00:00
+[2024-03-18T07:56:34.271+0000] {standard_task_runner.py:60} INFO - Started process 1712 to run task
+[2024-03-18T07:56:34.481+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'two_separate_groups', 'delete_dataset_files_3_task', 'manual__2024-03-18T06:40:31.356042+00:00', '--job-id', '271', '--raw', '--subdir', 'DAGS_FOLDER/ingest_data_to_gcs.py', '--cfg-path', '/tmp/tmp7jeuu795']
+[2024-03-18T07:56:34.509+0000] {standard_task_runner.py:88} INFO - Job 271: Subtask delete_dataset_files_3_task
+[2024-03-18T07:56:35.415+0000] {task_command.py:423} INFO - Running <TaskInstance: two_separate_groups.delete_dataset_files_3_task manual__2024-03-18T06:40:31.356042+00:00 [running]> on host 9958f290dc4a
+[2024-03-18T07:56:36.763+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='two_separate_groups' AIRFLOW_CTX_TASK_ID='delete_dataset_files_3_task' AIRFLOW_CTX_EXECUTION_DATE='2024-03-18T06:40:31.356042+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-18T06:40:31.356042+00:00'
+[2024-03-18T07:56:36.779+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2024-03-18T07:56:36.794+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'rm /opt/***/chicago_crime_data_3.csv             rm /opt/***/chicago_crime_data_3.parquet']
+[2024-03-18T07:56:37.050+0000] {subprocess.py:86} INFO - Output:
+[2024-03-18T07:56:37.161+0000] {subprocess.py:93} INFO - rm: cannot remove '/opt/***/chicago_crime_data_3.csv': No such file or directory
+[2024-03-18T07:56:37.162+0000] {subprocess.py:93} INFO - rm: cannot remove 'rm': No such file or directory
+[2024-03-18T07:56:37.162+0000] {subprocess.py:93} INFO - rm: cannot remove '/opt/***/chicago_crime_data_3.parquet': No such file or directory
+[2024-03-18T07:56:37.164+0000] {subprocess.py:97} INFO - Command exited with return code 1
+[2024-03-18T07:56:37.203+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/bash.py", line 212, in execute
+    raise AirflowException(
+airflow.exceptions.AirflowException: Bash command failed. The command returned a non-zero exit code 1.
+[2024-03-18T07:56:37.299+0000] {taskinstance.py:1149} INFO - Marking task as FAILED. dag_id=two_separate_groups, task_id=delete_dataset_files_3_task, execution_date=20240318T064031, start_date=20240318T075633, end_date=20240318T075637
+[2024-03-18T07:56:37.471+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 271 for task delete_dataset_files_3_task (Bash command failed. The command returned a non-zero exit code 1.; 1712)
+[2024-03-18T07:56:37.511+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-18T07:56:37.577+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check
