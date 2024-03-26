@@ -4,7 +4,7 @@ locals {
 
 variable "project" {
   description = "Project name"
-  default     = "chicago-crime-de"
+  default     = "chicago-crime-de-418413"
 }
 
 variable "region" {

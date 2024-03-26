@@ -29,7 +29,6 @@ datasets_links = [
     'https://data.cityofchicago.org/resource/w98m-zvie.csv?\$limit=300000',
     'https://data.cityofchicago.org/resource/qzdf-xmn8.csv?\$limit=300000']
 
-l2 = ["one", "two", "three", "four"]
 
 def format_to_parquet(src_file):
     if not src_file.endswith('.csv'):
@@ -60,7 +59,7 @@ def upload_to_gcs(bucket, object_name, local_file):
 
 
 with DAG(
-    'two_separate_groups',
+    'ingesting_data_bq',
     schedule_interval='@daily',
     start_date=days_ago(1),
     catchup=False
@@ -68,12 +67,12 @@ with DAG(
     start = DummyOperator(task_id='start',)
     stop = DummyOperator(task_id='stop')
 
-    for i in datasets_links:
-        dataset_number = datasets_links.index(i)
+    for dataset in datasets_links:
+        dataset_number = datasets_links.index(dataset)
 
         download_task = BashOperator(
             task_id=f'download_dataset_{dataset_number}_task',
-            bash_command=f"wget -O {AIRFLOW_HOME}/chicago_crime_data_{dataset_number}.csv {i}",
+            bash_command=f"wget -O {AIRFLOW_HOME}/chicago_crime_data_{dataset_number}.csv {dataset}",
         )
         
         format_to_parquet_task = PythonOperator(

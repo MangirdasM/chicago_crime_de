@@ -1,0 +1,30 @@
+[2024-03-26T08:23:14.762+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_crime_process_dag.upload_jar manual__2024-03-26T08:20:00.691315+00:00 [queued]>
+[2024-03-26T08:23:14.776+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_crime_process_dag.upload_jar manual__2024-03-26T08:20:00.691315+00:00 [queued]>
+[2024-03-26T08:23:14.777+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 2
+[2024-03-26T08:23:14.802+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): upload_jar> on 2024-03-26 08:20:00.691315+00:00
+[2024-03-26T08:23:14.811+0000] {standard_task_runner.py:60} INFO - Started process 260 to run task
+[2024-03-26T08:23:14.815+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'data_crime_process_dag', 'upload_jar', 'manual__2024-03-26T08:20:00.691315+00:00', '--job-id', '302', '--raw', '--subdir', 'DAGS_FOLDER/data_transformation.py', '--cfg-path', '/tmp/tmpiatg95br']
+[2024-03-26T08:23:14.818+0000] {standard_task_runner.py:88} INFO - Job 302: Subtask upload_jar
+[2024-03-26T08:23:14.905+0000] {task_command.py:423} INFO - Running <TaskInstance: data_crime_process_dag.upload_jar manual__2024-03-26T08:20:00.691315+00:00 [running]> on host 4820cb2471ab
+[2024-03-26T08:23:15.036+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_crime_process_dag' AIRFLOW_CTX_TASK_ID='upload_jar' AIRFLOW_CTX_EXECUTION_DATE='2024-03-26T08:20:00.691315+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-26T08:20:00.691315+00:00'
+[2024-03-26T08:23:15.178+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/data_transformation.py", line 75, in upload_to_gcs
+    blob.upload_from_filename(local_file)
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/cloud/storage/blob.py", line 2929, in upload_from_filename
+    self._handle_filename_and_upload(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/cloud/storage/blob.py", line 2797, in _handle_filename_and_upload
+    with open(filename, "rb") as file_obj:
+FileNotFoundError: [Errno 2] No such file or directory: '{AIRFLOW_HOME}/spark-3.5-bigquery-0.36.1.jar'
+[2024-03-26T08:23:15.196+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=data_crime_process_dag, task_id=upload_jar, execution_date=20240326T082000, start_date=20240326T082314, end_date=20240326T082315
+[2024-03-26T08:23:15.215+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 302 for task upload_jar ([Errno 2] No such file or directory: '{AIRFLOW_HOME}/spark-3.5-bigquery-0.36.1.jar'; 260)
+[2024-03-26T08:23:15.233+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-26T08:23:15.264+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check
