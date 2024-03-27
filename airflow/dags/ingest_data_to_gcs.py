@@ -116,4 +116,30 @@ with DAG(
                 },
            }
         )
-        start >> download_task >> format_to_parquet_task >> local_to_gcs_task >> delete_task >> bigquery_external_table_task >> stop
+        start >> download_task >> format_to_parquet_task >> local_to_gcs_task >> bigquery_external_table_task >> stop
+
+
+    download_CommAreas_task = BashOperator(
+        task_id=f'download_CommunityAreas_task',
+        bash_command=f"wget -O {AIRFLOW_HOME}/chicago_comm_areas.csv https://data.cityofchicago.org/api/views/igwz-8jzy/rows.csv?accessType=DOWNLOAD",
+    )
+
+    format_to_parquet_task = PythonOperator(
+        task_id=f"format_to_parquet_CommArea_task",
+        python_callable=format_to_parquet,
+        op_kwargs={
+            "src_file": f"{AIRFLOW_HOME}/chicago_comm_areas.csv",
+        },
+    )
+        
+    local_to_gcs_task = PythonOperator(
+        task_id=f"local_to_gcs_CommArea_task",
+        python_callable=upload_to_gcs,
+        op_kwargs={
+            "bucket": BUCKET,
+            "object_name": f"raw/chicago_crime_data_comm_area.parquet",
+            "local_file": f"{AIRFLOW_HOME}/chicago_crime_data_comm_area.parquet",
+        },
+    )
+
+    start >> download_CommAreas_task >> local_to_gcs_task >> stop

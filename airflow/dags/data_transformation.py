@@ -37,6 +37,12 @@ CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
             num_workers=0,                     
         ).make()
 
+PYSPARK_JOB = {
+    "reference": {"project_id": PROJECT_ID},
+    "placement": {"cluster_name": CLUSTER_NAME},
+    "pyspark_job": {"main_python_file_uri": JOB_FILE_URI},
+}
+
 
 def upload_to_gcs(bucket, object_name, local_file):
     """
