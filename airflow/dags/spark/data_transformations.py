@@ -5,7 +5,7 @@ from pyspark.sql import functions as F
 from pyspark.sql import types
 
 
-schema  = types.StructType([
+crime_schema  = types.StructType([
     types.StructField('ID', types.StringType(), True), 
     types.StructField('Case Number', types.StringType(), True), 
     types.StructField('Date', types.StringType(), True), 
@@ -37,6 +37,24 @@ schema  = types.StructType([
     types.StructField('Police Districts', types.StringType(), True), 
     types.StructField('Police Beats', types.StringType(), True)])
 
+com_schema  = types.StructType([
+    types.StructField('the_geom', types.StringType(), True), 
+    types.StructField('PERIMETER', types.StringType(), True), 
+    types.StructField('AREA', types.StringType(), True), 
+    types.StructField('COMAREA', types.StringType(), True), 
+    types.StructField('COMAREA_ID', types.StringType(), True), 
+    types.StructField('AREA_NUMBA', types.StringType(), True), 
+    types.StructField('COMMUNITY', types.StringType(), True), 
+    types.StructField('AREA_NUM_1', types.IntegerType(), True), 
+    types.StructField('SHAPE_AREA', types.StringType(), True), 
+    types.StructField('SHAPE_LEN', types.StringType(), True)])
+
+
+def change_location_format(lat, long):
+    txt = "{0},{1}".format(lat, long)
+    return txt
+
+change_location_format = F.udf(change_location_format, returnType=types.StringType())
 
 spark = SparkSession.builder \
     .master('yarn') \
@@ -48,38 +66,46 @@ spark.conf.set("spark.sql.debug.maxToStringFields", 1000)
 spark.conf.set("viewsEnabled","true")
 spark.conf.set("materializationDataset","<dataset>")
 
-df = spark.read \
-    .schema(schema) \
-    .parquet('gs://dtc_data_lake_chicago-crime-de-418413/raw/*')
+crime_df = spark.read \
+    .schema(crime_schema) \
+    .parquet('gs://dtc_data_lake_chicago-crime-de-418413/raw/crime_data/*')
+
+comm_df = spark.read \
+    .schema(com_schema) \
+    .parquet('gs://dtc_data_lake_chicago-crime-de-418413/raw/comm_areas/*')
 
 
+crime_df = crime_df \
+    .withColumnRenamed('Case Number', 'case_number') \
+    .withColumnRenamed('Primary Type', 'primary_type') \
+    .withColumnRenamed('Location Description', 'location_description') \
+    .withColumnRenamed('Community Area', 'community_area') \
+    .withColumnRenamed('FBI Code', 'FBI_code') \
+    .withColumnRenamed('X Coordinate', 'X_coordinate') \
+    .withColumnRenamed('Y Coordinate', 'Y_coordinate') \
+    .withColumnRenamed('Updated On', 'updated_on') \
+    .withColumnRenamed('Zip Codes', 'zip_codes') \
+    .withColumnRenamed('Community Areas', 'community_areas') \
+    .withColumnRenamed('Historical Wards 2003-2015', 'historical_wards') \
+    .withColumnRenamed('Census Tracts', 'census_tracts') \
+    .withColumnRenamed('Boundaries - ZIP Codes', 'ZIP_codes_B') \
+    .withColumnRenamed('Police Districts', 'police_districts') \
+    .withColumnRenamed('Police Beats', 'police_beats')
 
-print(df.count())
-print(df.schema)
+cond = [crime_df.community_area == comm_df.AREA_NUMBA]
 
-df = df \
-    .withColumnRenamed('Case Number', 'CaseNumber') \
-    .withColumnRenamed('Primary Type', 'Primary_Type') \
-    .withColumnRenamed('Location Description', 'Location_Description') \
-    .withColumnRenamed('Community Area', 'Community_Area') \
-    .withColumnRenamed('FBI Code', 'FBI_Code') \
-    .withColumnRenamed('X Coordinate', 'X_Coordinate') \
-    .withColumnRenamed('Y Coordinate', 'Y_Coordinate') \
-    .withColumnRenamed('Updated On', 'Updated_On') \
-    .withColumnRenamed('Zip Codes', 'Zip_Codes') \
-    .withColumnRenamed('Community Areas', 'Community_Areas') \
-    .withColumnRenamed('Historical Wards 2003-2015', 'Historical_Wards') \
-    .withColumnRenamed('Census Tracts', 'Census_Tracts') \
-    .withColumnRenamed('Boundaries - ZIP Codes', 'ZIP_Codes_B') \
-    .withColumnRenamed('Police Districts', 'Police_Districts') \
-    .withColumnRenamed('Police Beats', 'Police_Beats') \
+crime_df \
+    .withColumn('Location', change_location_format(crime_df.Latitude, crime_df.Longitude)) \
+    .withColumn("Date", F.from_unixtime(F.unix_timestamp("Date",'M/d/yyyy h:mm:ss a'),'yyyy-M-d')) \
+    .join(comm_df, cond, "inner") \
+    .select('ID',"case_number", 'Arrest', 'Domestic', 'IUCR', 'Date', 'primary_type','COMMUNITY', 'Location') \
+    .coalesce(1) \
+    .write.format('bigquery') \
+    .option('temporaryGcsBucket','dataproc-temp-europe-central2-909036293289-xyutsjfe') \
+    .option("table", 'chicago_crime_dataset.crime_output') \
+    .mode('overwrite') \
+    .save()
 
-print(df.schema)
-
-df.write.format('com.google.cloud.spark.bigquery') \
-  .option('temporaryGcsBucket','dataproc-temp-europe-central2-909036293289-xyutsjfe') \
-  .option("table", 'chicago_crime_dataset/crime_output') \
-  .save()
 
 
         

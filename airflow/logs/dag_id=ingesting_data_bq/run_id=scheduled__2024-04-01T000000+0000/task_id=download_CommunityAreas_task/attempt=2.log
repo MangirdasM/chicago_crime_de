@@ -1,0 +1,66 @@
+[2024-04-02T08:32:45.934+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: ingesting_data_bq.download_CommunityAreas_task scheduled__2024-04-01T00:00:00+00:00 [queued]>
+[2024-04-02T08:32:45.969+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: ingesting_data_bq.download_CommunityAreas_task scheduled__2024-04-01T00:00:00+00:00 [queued]>
+[2024-04-02T08:32:45.971+0000] {taskinstance.py:2193} INFO - Starting attempt 2 of 2
+[2024-04-02T08:32:46.020+0000] {taskinstance.py:2214} INFO - Executing <Task(BashOperator): download_CommunityAreas_task> on 2024-04-01 00:00:00+00:00
+[2024-04-02T08:32:46.031+0000] {standard_task_runner.py:60} INFO - Started process 2796 to run task
+[2024-04-02T08:32:46.045+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'ingesting_data_bq', 'download_CommunityAreas_task', 'scheduled__2024-04-01T00:00:00+00:00', '--job-id', '651', '--raw', '--subdir', 'DAGS_FOLDER/ingest_data_to_gcs.py', '--cfg-path', '/tmp/tmpivdvk0yf']
+[2024-04-02T08:32:46.050+0000] {standard_task_runner.py:88} INFO - Job 651: Subtask download_CommunityAreas_task
+[2024-04-02T08:32:46.293+0000] {task_command.py:423} INFO - Running <TaskInstance: ingesting_data_bq.download_CommunityAreas_task scheduled__2024-04-01T00:00:00+00:00 [running]> on host 0f6b1d3e95d8
+[2024-04-02T08:32:46.501+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='ingesting_data_bq' AIRFLOW_CTX_TASK_ID='download_CommunityAreas_task' AIRFLOW_CTX_EXECUTION_DATE='2024-04-01T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='2' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2024-04-01T00:00:00+00:00'
+[2024-04-02T08:32:46.504+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2024-04-02T08:32:46.518+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'wget -O /opt/***/chicago_comm_areas.csv https://data.cityofchicago.org/api/views/igwz-8jzy/rows.csv?accessType=DOWNLOAD']
+[2024-04-02T08:32:46.531+0000] {subprocess.py:86} INFO - Output:
+[2024-04-02T08:32:46.863+0000] {subprocess.py:93} INFO - --2024-04-02 08:32:46--  https://data.cityofchicago.org/api/views/igwz-8jzy/rows.csv?accessType=DOWNLOAD
+[2024-04-02T08:32:47.126+0000] {subprocess.py:93} INFO - Resolving data.cityofchicago.org (data.cityofchicago.org)... 52.206.68.26, 52.206.140.205, 52.206.140.199
+[2024-04-02T08:32:47.127+0000] {subprocess.py:93} INFO - Connecting to data.cityofchicago.org (data.cityofchicago.org)|52.206.68.26|:443... connected.
+[2024-04-02T08:32:48.262+0000] {subprocess.py:93} INFO - HTTP request sent, awaiting response... 200 OK
+[2024-04-02T08:32:48.263+0000] {subprocess.py:93} INFO - Length: unspecified [text/csv]
+[2024-04-02T08:32:48.264+0000] {subprocess.py:93} INFO - Saving to: ‘/opt/***/chicago_comm_areas.csv’
+[2024-04-02T08:32:48.264+0000] {subprocess.py:93} INFO - 
+[2024-04-02T08:32:48.373+0000] {subprocess.py:93} INFO -      0K .......... .......... .......... .......... ..........  454K
+[2024-04-02T08:32:48.484+0000] {subprocess.py:93} INFO -     50K .......... .......... .......... .......... ..........  453K
+[2024-04-02T08:32:48.486+0000] {subprocess.py:93} INFO -    100K .......... .......... .......... .......... .......... 25.3M
+[2024-04-02T08:32:48.487+0000] {subprocess.py:93} INFO -    150K .......... .......... .......... .......... .......... 40.8M
+[2024-04-02T08:32:48.594+0000] {subprocess.py:93} INFO -    200K .......... .......... .......... .......... ..........  462K
+[2024-04-02T08:32:48.595+0000] {subprocess.py:93} INFO -    250K .......... .......... .......... .......... .......... 50.4M
+[2024-04-02T08:32:48.597+0000] {subprocess.py:93} INFO -    300K .......... .......... .......... .......... .......... 33.9M
+[2024-04-02T08:32:48.599+0000] {subprocess.py:93} INFO -    350K .......... .......... .......... .......... .......... 29.1M
+[2024-04-02T08:32:48.705+0000] {subprocess.py:93} INFO -    400K .......... .......... .......... .......... ..........  472K
+[2024-04-02T08:32:48.707+0000] {subprocess.py:93} INFO -    450K .......... .......... .......... .......... .......... 21.3M
+[2024-04-02T08:32:48.709+0000] {subprocess.py:93} INFO -    500K .......... .......... .......... .......... .......... 43.6M
+[2024-04-02T08:32:48.710+0000] {subprocess.py:93} INFO -    550K .......... .......... .......... .......... .......... 79.8M
+[2024-04-02T08:32:48.711+0000] {subprocess.py:93} INFO -    600K .......... .......... .......... .......... .......... 35.6M
+[2024-04-02T08:32:48.815+0000] {subprocess.py:93} INFO -    650K .......... .......... .......... .......... ..........  477K
+[2024-04-02T08:32:48.816+0000] {subprocess.py:93} INFO -    700K .......... .......... .......... .......... .......... 44.1M
+[2024-04-02T08:32:48.817+0000] {subprocess.py:93} INFO -    750K .......... .......... .......... .......... .......... 36.4M
+[2024-04-02T08:32:48.820+0000] {subprocess.py:93} INFO -    800K .......... .......... .......... .......... .......... 32.6M
+[2024-04-02T08:32:48.821+0000] {subprocess.py:93} INFO -    850K .......... .......... .......... .......... .......... 48.8M
+[2024-04-02T08:32:48.928+0000] {subprocess.py:93} INFO -    900K .......... .......... .......... .......... ..........  463K
+[2024-04-02T08:32:48.933+0000] {subprocess.py:93} INFO -    950K .......... .......... .......... .......... .......... 13.8M
+[2024-04-02T08:32:48.939+0000] {subprocess.py:93} INFO -   1000K .......... .......... .......... .......... .......... 8.59M
+[2024-04-02T08:32:48.940+0000] {subprocess.py:93} INFO -   1050K .......... .......... .......... .......... .......... 64.4M
+[2024-04-02T08:32:48.944+0000] {subprocess.py:93} INFO -   1100K .......... .......... .......... .......... .......... 67.6M
+[2024-04-02T08:32:48.945+0000] {subprocess.py:93} INFO -   1150K .......... .......... .......... .......... .......... 9.42M
+[2024-04-02T08:32:48.949+0000] {subprocess.py:93} INFO -   1200K .......... .......... .......... .......... .......... 8.44M
+[2024-04-02T08:32:48.950+0000] {subprocess.py:93} INFO -   1250K .......... .......... .......... .......... .......... 39.1M
+[2024-04-02T08:32:48.955+0000] {subprocess.py:93} INFO -   1300K .......... .......... .......... .......... .......... 36.9M
+[2024-04-02T08:32:48.957+0000] {subprocess.py:93} INFO -   1350K .......... .......... .......... .......... .......... 24.9M
+[2024-04-02T08:32:48.959+0000] {subprocess.py:93} INFO -   1400K .......... .......... .......... .......... .......... 9.69M
+[2024-04-02T08:32:48.972+0000] {subprocess.py:93} INFO -   1450K .......... .......... .......... .......... ..........  231M
+[2024-04-02T08:32:49.031+0000] {subprocess.py:93} INFO -   1500K .......... .......... .......... .......... .......... 4.26M
+[2024-04-02T08:32:49.036+0000] {subprocess.py:93} INFO -   1550K .......... .......... .......... .......... ..........  126M
+[2024-04-02T08:32:49.043+0000] {subprocess.py:93} INFO -   1600K .......... .......... .......... .......... .......... 15.1M
+[2024-04-02T08:32:49.046+0000] {subprocess.py:93} INFO -   1650K .......... .......... .......... .......... ..........  778K
+[2024-04-02T08:32:49.047+0000] {subprocess.py:93} INFO -   1700K .......... .......... .......... .......... .......... 13.2M
+[2024-04-02T08:32:49.048+0000] {subprocess.py:93} INFO -   1750K .......... .......... .......... .......... .......... 15.5M
+[2024-04-02T08:32:49.049+0000] {subprocess.py:93} INFO -   1800K .......... .......... .......... .......... ..........  396M
+[2024-04-02T08:32:49.050+0000] {subprocess.py:93} INFO -   1850K .......... .......... .......... .......... ..........  394M
+[2024-04-02T08:32:49.050+0000] {subprocess.py:93} INFO -   1900K .......... .......... .......... .......... ..........  297M
+[2024-04-02T08:32:49.051+0000] {subprocess.py:93} INFO -   1950K .......... ..                                           154M=0.8s
+[2024-04-02T08:32:49.051+0000] {subprocess.py:93} INFO - 
+[2024-04-02T08:32:49.052+0000] {subprocess.py:93} INFO - 2024-04-02 08:32:49 (2.45 MB/s) - ‘/opt/***/chicago_comm_areas.csv’ saved [2009107]
+[2024-04-02T08:32:49.052+0000] {subprocess.py:93} INFO - 
+[2024-04-02T08:32:49.053+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2024-04-02T08:32:49.096+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=ingesting_data_bq, task_id=download_CommunityAreas_task, execution_date=20240401T000000, start_date=20240402T083245, end_date=20240402T083249
+[2024-04-02T08:32:49.153+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2024-04-02T08:32:49.480+0000] {taskinstance.py:3309} INFO - 1 downstream tasks scheduled from follow-on schedule check

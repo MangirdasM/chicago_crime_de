@@ -72,7 +72,7 @@ with DAG(
             python_callable=upload_to_gcs,
             op_kwargs={
                 "bucket": BUCKET,
-                "object_name": f"raw/chicago_crime_data_{dataset_number}.csv",
+                "object_name": f"raw/crime_data/chicago_crime_data_{dataset_number}.csv",
                 "local_file": f"{AIRFLOW_HOME}/chicago_crime_data_{dataset_number}.csv",
             },
         )
@@ -91,7 +91,7 @@ with DAG(
         python_callable=upload_to_gcs,
         op_kwargs={
             "bucket": BUCKET,
-            "object_name": f"raw/chicago_comm_areas.csv",
+            "object_name": f"raw/comm_areas/chicago_comm_areas.csv",
             "local_file": f"{AIRFLOW_HOME}/chicago_comm_areas.csv",
         },
     )
