@@ -4,6 +4,9 @@ from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 from pyspark.sql import types
 
+parser = argparse.ArgumentParser()
+parser.add_argument("--bucket", required=True, type=str)
+args = parser.parse_args()
 
 crime_schema  = types.StructType([
     types.StructField('ID', types.StringType(), True), 
@@ -58,7 +61,7 @@ change_location_format = F.udf(change_location_format, returnType=types.StringTy
 
 spark = SparkSession.builder \
     .master('yarn') \
-    .appName('test') \
+    .appName('transform_data') \
     .getOrCreate()
 
 spark.conf.set('temporaryGcsBucket', 'dataproc-temp-europe-central2-909036293289-xyutsjfe')
@@ -68,11 +71,11 @@ spark.conf.set("materializationDataset","<dataset>")
 
 crime_df = spark.read \
     .schema(crime_schema) \
-    .parquet('gs://dtc_data_lake_chicago-crime-de-418413/raw/crime_data/*')
+    .csv(f'gs://{args.bucket}/raw/crime_data/*')
 
 comm_df = spark.read \
     .schema(com_schema) \
-    .parquet('gs://dtc_data_lake_chicago-crime-de-418413/raw/comm_areas/*')
+    .csv(f'gs://{args.bucket}/raw/comm_areas/*')
 
 
 crime_df = crime_df \

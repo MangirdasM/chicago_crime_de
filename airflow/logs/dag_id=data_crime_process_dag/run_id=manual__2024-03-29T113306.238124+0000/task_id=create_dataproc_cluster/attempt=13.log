@@ -1,0 +1,21 @@
+[2024-04-02T13:36:35.468+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_crime_process_dag.create_dataproc_cluster manual__2024-03-29T11:33:06.238124+00:00 [queued]>
+[2024-04-02T13:36:35.482+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_crime_process_dag.create_dataproc_cluster manual__2024-03-29T11:33:06.238124+00:00 [queued]>
+[2024-04-02T13:36:35.483+0000] {taskinstance.py:2193} INFO - Starting attempt 13 of 14
+[2024-04-02T13:36:35.501+0000] {taskinstance.py:2214} INFO - Executing <Task(DataprocCreateClusterOperator): create_dataproc_cluster> on 2024-03-29 11:33:06.238124+00:00
+[2024-04-02T13:36:35.508+0000] {standard_task_runner.py:60} INFO - Started process 225 to run task
+[2024-04-02T13:36:35.512+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'data_crime_process_dag', 'create_dataproc_cluster', 'manual__2024-03-29T11:33:06.238124+00:00', '--job-id', '671', '--raw', '--subdir', 'DAGS_FOLDER/data_transformation.py', '--cfg-path', '/tmp/tmpudbrd9lb']
+[2024-04-02T13:36:35.515+0000] {standard_task_runner.py:88} INFO - Job 671: Subtask create_dataproc_cluster
+[2024-04-02T13:36:35.555+0000] {task_command.py:423} INFO - Running <TaskInstance: data_crime_process_dag.create_dataproc_cluster manual__2024-03-29T11:33:06.238124+00:00 [running]> on host 0f6b1d3e95d8
+[2024-04-02T13:36:35.634+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_crime_process_dag' AIRFLOW_CTX_TASK_ID='create_dataproc_cluster' AIRFLOW_CTX_EXECUTION_DATE='2024-03-29T11:33:06.238124+00:00' AIRFLOW_CTX_TRY_NUMBER='13' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-29T11:33:06.238124+00:00'
+[2024-04-02T13:36:35.636+0000] {dataproc.py:778} INFO - Creating cluster: dataproc-cluster
+[2024-04-02T13:36:35.637+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2024-04-02T13:36:35.637+0000] {connection.py:269} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2024-04-02T13:36:35.638+0000] {base.py:83} INFO - Using connection ID 'google_cloud_default' for task execution.
+[2024-04-02T13:37:51.261+0000] {local_task_job_runner.py:302} WARNING - State of this instance has been externally set to restarting. Terminating instance.
+[2024-04-02T13:37:51.264+0000] {process_utils.py:131} INFO - Sending 15 to group 225. PIDs of all processes in the group: [225]
+[2024-04-02T13:37:51.265+0000] {process_utils.py:86} INFO - Sending the signal 15 to group 225
+[2024-04-02T13:37:51.287+0000] {taskinstance.py:2480} ERROR - Received SIGTERM. Terminating subprocesses.
+[2024-04-02T13:38:51.280+0000] {process_utils.py:149} WARNING - process psutil.Process(pid=225, name='airflow task ru', status='sleeping', started='13:36:35') did not respond to SIGTERM. Trying SIGKILL
+[2024-04-02T13:38:51.283+0000] {process_utils.py:86} INFO - Sending the signal 9 to group 225
+[2024-04-02T13:38:51.298+0000] {process_utils.py:79} INFO - Process psutil.Process(pid=225, name='airflow task ru', status='terminated', exitcode=<Negsignal.SIGKILL: -9>, started='13:36:35') (225) terminated with exit code -9
+[2024-04-02T13:38:51.300+0000] {standard_task_runner.py:175} ERROR - Job 671 was killed before it finished (likely due to running out of memory)

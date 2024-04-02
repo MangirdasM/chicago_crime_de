@@ -14,7 +14,7 @@ CLUSTER_NAME = "dataproc-cluster"
 
 
 AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
-PYSPARK_MAIN_FILE = "/dags/spark/data_transformations.py"
+PYSPARK_MAIN_FILE = "data_transformations.py"
 PYSPARK_MAIN_FILE_PATH = os.path.join(AIRFLOW_HOME, PYSPARK_MAIN_FILE)
 SPARK_BQ_JAR = "spark-bigquery-latest_2.12.jar"
 SPARK_BQ_JAR_PATH = os.path.join(AIRFLOW_HOME, SPARK_BQ_JAR)
@@ -25,7 +25,7 @@ GCS_JAR_URL = "https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-lates
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 BUCKET = os.environ.get("GCP_GCS_BUCKET")
 BIGQUERY_DATASET = os.environ.get("BIGQUERY_DATASET", 'chicago_crime_dataset')
-JOB_FILE_URI = ""
+JOB_FILE_URI = f"gs://{BUCKET}/scripts/{PYSPARK_MAIN_FILE}"
 
 
 
@@ -44,7 +44,12 @@ CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
 PYSPARK_JOB = {
     "reference": {"project_id": PROJECT_ID},
     "placement": {"cluster_name": CLUSTER_NAME},
-    "pyspark_job": {"main_python_file_uri": JOB_FILE_URI},
+    "pyspark_job": {
+        "main_python_file_uri": JOB_FILE_URI,
+        "jar_file_uris": [f"gs://{BUCKET}/connector/spark-3.5-bigquery-0.36.1.jar"],
+        "args": [
+            f"--bucket={BUCKET}",
+        ],},
 }
 
 
@@ -82,7 +87,7 @@ with DAG(
     schedule_interval="@once",
     default_args=default_args
 ) as dag:
-    
+
     download_BQ_connector_jar_task = BashOperator(
         task_id="download_BQ_connector_jar_task",
         bash_command=f"wget -O {AIRFLOW_HOME}/spark-3.5-bigquery-0.36.1.jar {BQ_JAR_URL}"
@@ -97,9 +102,9 @@ with DAG(
         task_id="upload_pyspark_script",
         python_callable=upload_to_gcs,
         op_kwargs={
-            "local_file": f"{AIRFLOW_HOME}/{PYSPARK_MAIN_FILE}",
+            "local_file": f"{AIRFLOW_HOME}/dags/spark/{PYSPARK_MAIN_FILE}",
             "bucket": BUCKET,
-            "object_name": "scripts/data_transformations.py",
+            "object_name": f"scripts/{PYSPARK_MAIN_FILE}",
         },
     )
 
@@ -131,12 +136,15 @@ with DAG(
         cluster_config=CLUSTER_GENERATOR_CONFIG
     )
     
-    # pyspark_task = DataprocSubmitJobOperator(
-    #     
-    # )
+    pyspark_task = DataprocSubmitJobOperator(
+        task_id="pyspark_task", 
+        job=PYSPARK_JOB, 
+        region=REGION, 
+        project_id=PROJECT_ID
+    )
     
 
 
     download_BQ_connector_jar_task >> upload_BQ_jar
     download_gcs_connector_jar_task >> upload_GCS_jar
-    [upload_BQ_jar, upload_GCS_jar] >> upload_pyspark_script >> create_cluster_operator_task
+    [upload_BQ_jar, upload_GCS_jar] >> upload_pyspark_script >> create_cluster_operator_task >>pyspark_task

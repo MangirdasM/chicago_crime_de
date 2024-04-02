@@ -1,0 +1,138 @@
+[2024-04-02T14:20:22.737+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_crime_process_dag.pyspark_task manual__2024-04-02T14:06:40.408956+00:00 [queued]>
+[2024-04-02T14:20:22.745+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_crime_process_dag.pyspark_task manual__2024-04-02T14:06:40.408956+00:00 [queued]>
+[2024-04-02T14:20:22.746+0000] {taskinstance.py:2193} INFO - Starting attempt 4 of 5
+[2024-04-02T14:20:22.760+0000] {taskinstance.py:2214} INFO - Executing <Task(DataprocSubmitJobOperator): pyspark_task> on 2024-04-02 14:06:40.408956+00:00
+[2024-04-02T14:20:22.768+0000] {standard_task_runner.py:60} INFO - Started process 525 to run task
+[2024-04-02T14:20:22.770+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'data_crime_process_dag', 'pyspark_task', 'manual__2024-04-02T14:06:40.408956+00:00', '--job-id', '691', '--raw', '--subdir', 'DAGS_FOLDER/data_transformation.py', '--cfg-path', '/tmp/tmpupqk_8xz']
+[2024-04-02T14:20:22.772+0000] {standard_task_runner.py:88} INFO - Job 691: Subtask pyspark_task
+[2024-04-02T14:20:22.813+0000] {task_command.py:423} INFO - Running <TaskInstance: data_crime_process_dag.pyspark_task manual__2024-04-02T14:06:40.408956+00:00 [running]> on host e9eb88e3fe4c
+[2024-04-02T14:20:22.920+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_crime_process_dag' AIRFLOW_CTX_TASK_ID='pyspark_task' AIRFLOW_CTX_EXECUTION_DATE='2024-04-02T14:06:40.408956+00:00' AIRFLOW_CTX_TRY_NUMBER='4' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-04-02T14:06:40.408956+00:00'
+[2024-04-02T14:20:22.922+0000] {dataproc.py:2550} INFO - Submitting job
+[2024-04-02T14:20:22.924+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2024-04-02T14:20:22.925+0000] {connection.py:269} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2024-04-02T14:20:22.926+0000] {base.py:83} INFO - Using connection ID 'google_cloud_default' for task execution.
+[2024-04-02T14:20:23.244+0000] {dataproc.py:2562} INFO - Job f931955d-1296-487c-9fea-0f47bf563197 submitted successfully.
+[2024-04-02T14:20:23.260+0000] {dataproc.py:2596} INFO - Waiting for job f931955d-1296-487c-9fea-0f47bf563197 to complete
+[2024-04-02T14:21:03.905+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/google/cloud/operators/dataproc.py", line 2597, in execute
+    self.hook.wait_for_job(
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/google/common/hooks/base_google.py", line 485, in inner_wrapper
+    return func(self, *args, **kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/providers/google/cloud/hooks/dataproc.py", line 828, in wait_for_job
+    raise AirflowException(f"Job failed:\n{job}")
+airflow.exceptions.AirflowException: Job failed:
+reference {
+  project_id: "chicago-crime-de-418413"
+  job_id: "f931955d-1296-487c-9fea-0f47bf563197"
+}
+placement {
+  cluster_name: "dataproc-cluster"
+  cluster_uuid: "7522ec4a-00eb-4a45-a27f-d144df24703f"
+}
+pyspark_job {
+  main_python_file_uri: "gs://dtc_data_lake_chicago-crime-de-418413/scripts/data_transformations.py"
+  args: "--bucket=dtc_data_lake_chicago-crime-de-418413"
+  jar_file_uris: "gs://dtc_data_lake_chicago-crime-de-418413/connector/spark-3.5-bigquery-0.36.1.jar"
+}
+status {
+  state: ERROR
+  details: "Google Cloud Dataproc Agent reports job failure. If logs are available, they can be found at:\nhttps://console.cloud.google.com/dataproc/jobs/f931955d-1296-487c-9fea-0f47bf563197?project=chicago-crime-de-418413&region=europe-central2\ngcloud dataproc jobs wait \'f931955d-1296-487c-9fea-0f47bf563197\' --region \'europe-central2\' --project \'chicago-crime-de-418413\'\nhttps://console.cloud.google.com/storage/browser/dataproc-staging-europe-central2-909036293289-qsdnpoj9/google-cloud-dataproc-metainfo/7522ec4a-00eb-4a45-a27f-d144df24703f/jobs/f931955d-1296-487c-9fea-0f47bf563197/\ngs://dataproc-staging-europe-central2-909036293289-qsdnpoj9/google-cloud-dataproc-metainfo/7522ec4a-00eb-4a45-a27f-d144df24703f/jobs/f931955d-1296-487c-9fea-0f47bf563197/driveroutput.*"
+  state_start_time {
+    seconds: 1712067655
+    nanos: 305230000
+  }
+}
+status_history {
+  state: PENDING
+  state_start_time {
+    seconds: 1712067623
+    nanos: 281281000
+  }
+}
+status_history {
+  state: SETUP_DONE
+  state_start_time {
+    seconds: 1712067623
+    nanos: 362508000
+  }
+}
+status_history {
+  state: RUNNING
+  state_start_time {
+    seconds: 1712067623
+    nanos: 777592000
+  }
+}
+yarn_applications {
+  name: "transform_data"
+  state: FINISHED
+  progress: 1
+  tracking_url: "http://dataproc-cluster-m:8088/proxy/application_1712066927193_0003/"
+}
+driver_output_resource_uri: "gs://dataproc-staging-europe-central2-909036293289-qsdnpoj9/google-cloud-dataproc-metainfo/7522ec4a-00eb-4a45-a27f-d144df24703f/jobs/f931955d-1296-487c-9fea-0f47bf563197/driveroutput"
+driver_control_files_uri: "gs://dataproc-staging-europe-central2-909036293289-qsdnpoj9/google-cloud-dataproc-metainfo/7522ec4a-00eb-4a45-a27f-d144df24703f/jobs/f931955d-1296-487c-9fea-0f47bf563197/"
+job_uuid: "f931955d-1296-487c-9fea-0f47bf563197"
+done: true
+
+[2024-04-02T14:21:03.909+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=data_crime_process_dag, task_id=pyspark_task, execution_date=20240402T140640, start_date=20240402T142022, end_date=20240402T142103
+[2024-04-02T14:21:03.922+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 691 for task pyspark_task (Job failed:
+reference {
+  project_id: "chicago-crime-de-418413"
+  job_id: "f931955d-1296-487c-9fea-0f47bf563197"
+}
+placement {
+  cluster_name: "dataproc-cluster"
+  cluster_uuid: "7522ec4a-00eb-4a45-a27f-d144df24703f"
+}
+pyspark_job {
+  main_python_file_uri: "gs://dtc_data_lake_chicago-crime-de-418413/scripts/data_transformations.py"
+  args: "--bucket=dtc_data_lake_chicago-crime-de-418413"
+  jar_file_uris: "gs://dtc_data_lake_chicago-crime-de-418413/connector/spark-3.5-bigquery-0.36.1.jar"
+}
+status {
+  state: ERROR
+  details: "Google Cloud Dataproc Agent reports job failure. If logs are available, they can be found at:\nhttps://console.cloud.google.com/dataproc/jobs/f931955d-1296-487c-9fea-0f47bf563197?project=chicago-crime-de-418413&region=europe-central2\ngcloud dataproc jobs wait \'f931955d-1296-487c-9fea-0f47bf563197\' --region \'europe-central2\' --project \'chicago-crime-de-418413\'\nhttps://console.cloud.google.com/storage/browser/dataproc-staging-europe-central2-909036293289-qsdnpoj9/google-cloud-dataproc-metainfo/7522ec4a-00eb-4a45-a27f-d144df24703f/jobs/f931955d-1296-487c-9fea-0f47bf563197/\ngs://dataproc-staging-europe-central2-909036293289-qsdnpoj9/google-cloud-dataproc-metainfo/7522ec4a-00eb-4a45-a27f-d144df24703f/jobs/f931955d-1296-487c-9fea-0f47bf563197/driveroutput.*"
+  state_start_time {
+    seconds: 1712067655
+    nanos: 305230000
+  }
+}
+status_history {
+  state: PENDING
+  state_start_time {
+    seconds: 1712067623
+    nanos: 281281000
+  }
+}
+status_history {
+  state: SETUP_DONE
+  state_start_time {
+    seconds: 1712067623
+    nanos: 362508000
+  }
+}
+status_history {
+  state: RUNNING
+  state_start_time {
+    seconds: 1712067623
+    nanos: 777592000
+  }
+}
+yarn_applications {
+  name: "transform_data"
+  state: FINISHED
+  progress: 1
+  tracking_url: "http://dataproc-cluster-m:8088/proxy/application_1712066927193_0003/"
+}
+driver_output_resource_uri: "gs://dataproc-staging-europe-central2-909036293289-qsdnpoj9/google-cloud-dataproc-metainfo/7522ec4a-00eb-4a45-a27f-d144df24703f/jobs/f931955d-1296-487c-9fea-0f47bf563197/driveroutput"
+driver_control_files_uri: "gs://dataproc-staging-europe-central2-909036293289-qsdnpoj9/google-cloud-dataproc-metainfo/7522ec4a-00eb-4a45-a27f-d144df24703f/jobs/f931955d-1296-487c-9fea-0f47bf563197/"
+job_uuid: "f931955d-1296-487c-9fea-0f47bf563197"
+done: true
+; 525)
+[2024-04-02T14:21:03.961+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-04-02T14:21:03.979+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check
