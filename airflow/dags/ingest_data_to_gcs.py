@@ -29,14 +29,6 @@ datasets_links = [
     'https://data.cityofchicago.org/resource/w98m-zvie.csv?\$limit=300000',
     'https://data.cityofchicago.org/resource/qzdf-xmn8.csv?\$limit=300000']
 
-
-def format_to_parquet(src_file):
-    if not src_file.endswith('.csv'):
-        logging.error("Can only accept source files in CSV format, for the moment")
-        return
-    table = pv.read_csv(src_file)
-    pq.write_table(table, src_file.replace('.csv', '.parquet'))
-
 def upload_to_gcs(bucket, object_name, local_file):
     """
     Ref: https://cloud.google.com/storage/docs/uploading-objects#storage-upload-object-python
@@ -75,42 +67,17 @@ with DAG(
             bash_command=f"wget -O {AIRFLOW_HOME}/chicago_crime_data_{dataset_number}.csv {dataset}",
         )
         
-        format_to_parquet_task = PythonOperator(
-            task_id=f"format_to_parquet_dataset_{dataset_number}_task",
-            python_callable=format_to_parquet,
-            op_kwargs={
-                "src_file": f"{AIRFLOW_HOME}/chicago_crime_data_{dataset_number}.csv",
-            },
-        )
-        
         local_to_gcs_task = PythonOperator(
             task_id=f"local_to_gcs_{dataset_number}_task",
             python_callable=upload_to_gcs,
             op_kwargs={
                 "bucket": BUCKET,
-                "object_name": f"raw/chicago_crime_data_{dataset_number}.parquet",
-                "local_file": f"{AIRFLOW_HOME}/chicago_crime_data_{dataset_number}.parquet",
+                "object_name": f"raw/chicago_crime_data_{dataset_number}.csv",
+                "local_file": f"{AIRFLOW_HOME}/chicago_crime_data_{dataset_number}.csv",
             },
         )
         
-        bigquery_external_table_task = BigQueryCreateExternalTableOperator(
-            task_id=f"bigquery_external_table_{dataset_number}_task",
-
-            table_resource={
-                "tableReference": {
-                    "projectId": PROJECT_ID,
-                    "datasetId": BIGQUERY_DATASET,
-                    "tableId": f"{BIGQUERY_DATASET}_external_table",
-                },
-                
-                "externalDataConfiguration": {
-                    "autodetect": "True",
-                    "sourceFormat": "PARQUET",
-                    "sourceUris": [f"gs://{BUCKET}/raw/*"],
-                },
-           }
-        )
-        start >> download_task >> format_to_parquet_task >> local_to_gcs_task >> bigquery_external_table_task >> stop
+        start >> download_task >> local_to_gcs_task  >> stop
 
 
     download_CommAreas_task = BashOperator(
@@ -118,22 +85,15 @@ with DAG(
         bash_command=f"wget -O {AIRFLOW_HOME}/chicago_comm_areas.csv https://data.cityofchicago.org/api/views/igwz-8jzy/rows.csv?accessType=DOWNLOAD",
     )
 
-    format_CommAreas_to_parquet_task = PythonOperator(
-        task_id=f"format_to_parquet_CommArea_task",
-        python_callable=format_to_parquet,
-        op_kwargs={
-            "src_file": f"{AIRFLOW_HOME}/chicago_comm_areas.csv",
-        },
-    )
         
     local_to_gcs_CommAreas_task = PythonOperator(
         task_id=f"local_to_gcs_CommArea_task",
         python_callable=upload_to_gcs,
         op_kwargs={
             "bucket": BUCKET,
-            "object_name": f"raw/chicago_comm_areas.parquet",
-            "local_file": f"{AIRFLOW_HOME}/chicago_comm_areas.parquet",
+            "object_name": f"raw/chicago_comm_areas.csv",
+            "local_file": f"{AIRFLOW_HOME}/chicago_comm_areas.csv",
         },
     )
 
-    start >> download_CommAreas_task >> format_CommAreas_to_parquet_task >> local_to_gcs_CommAreas_task >> stop
+    start >> download_CommAreas_task  >> local_to_gcs_CommAreas_task >> stop
