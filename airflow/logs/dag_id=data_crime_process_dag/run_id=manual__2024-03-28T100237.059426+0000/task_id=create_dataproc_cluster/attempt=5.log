@@ -1,0 +1,17 @@
+[2024-03-28T15:01:58.452+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_crime_process_dag.create_dataproc_cluster manual__2024-03-28T10:02:37.059426+00:00 [queued]>
+[2024-03-28T15:01:58.462+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_crime_process_dag.create_dataproc_cluster manual__2024-03-28T10:02:37.059426+00:00 [queued]>
+[2024-03-28T15:01:58.463+0000] {taskinstance.py:2193} INFO - Starting attempt 5 of 6
+[2024-03-28T15:01:58.476+0000] {taskinstance.py:2214} INFO - Executing <Task(DataprocCreateClusterOperator): create_dataproc_cluster> on 2024-03-28 10:02:37.059426+00:00
+[2024-03-28T15:01:58.483+0000] {standard_task_runner.py:60} INFO - Started process 3166 to run task
+[2024-03-28T15:01:58.485+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'data_crime_process_dag', 'create_dataproc_cluster', 'manual__2024-03-28T10:02:37.059426+00:00', '--job-id', '460', '--raw', '--subdir', 'DAGS_FOLDER/data_transformation.py', '--cfg-path', '/tmp/tmpvh_ngbx1']
+[2024-03-28T15:01:58.487+0000] {standard_task_runner.py:88} INFO - Job 460: Subtask create_dataproc_cluster
+[2024-03-28T15:01:58.529+0000] {task_command.py:423} INFO - Running <TaskInstance: data_crime_process_dag.create_dataproc_cluster manual__2024-03-28T10:02:37.059426+00:00 [running]> on host d3d7fa608a49
+[2024-03-28T15:01:58.602+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_crime_process_dag' AIRFLOW_CTX_TASK_ID='create_dataproc_cluster' AIRFLOW_CTX_EXECUTION_DATE='2024-03-28T10:02:37.059426+00:00' AIRFLOW_CTX_TRY_NUMBER='5' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-28T10:02:37.059426+00:00'
+[2024-03-28T15:01:58.604+0000] {dataproc.py:778} INFO - Creating cluster: dataproc-cluster
+[2024-03-28T15:01:58.606+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2024-03-28T15:01:58.607+0000] {connection.py:269} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2024-03-28T15:01:58.608+0000] {base.py:83} INFO - Using connection ID 'google_cloud_default' for task execution.
+[2024-03-28T15:02:00.292+0000] {dataproc.py:823} INFO - Cluster already exists.
+[2024-03-28T15:02:00.443+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=data_crime_process_dag, task_id=create_dataproc_cluster, execution_date=20240328T100237, start_date=20240328T150158, end_date=20240328T150200
+[2024-03-28T15:02:00.505+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2024-03-28T15:02:00.533+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

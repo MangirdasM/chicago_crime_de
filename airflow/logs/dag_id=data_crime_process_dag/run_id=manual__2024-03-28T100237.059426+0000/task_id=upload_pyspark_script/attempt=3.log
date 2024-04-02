@@ -1,0 +1,30 @@
+[2024-03-28T10:10:30.537+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_crime_process_dag.upload_pyspark_script manual__2024-03-28T10:02:37.059426+00:00 [queued]>
+[2024-03-28T10:10:30.551+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_crime_process_dag.upload_pyspark_script manual__2024-03-28T10:02:37.059426+00:00 [queued]>
+[2024-03-28T10:10:30.551+0000] {taskinstance.py:2193} INFO - Starting attempt 3 of 4
+[2024-03-28T10:10:30.567+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): upload_pyspark_script> on 2024-03-28 10:02:37.059426+00:00
+[2024-03-28T10:10:30.573+0000] {standard_task_runner.py:60} INFO - Started process 183 to run task
+[2024-03-28T10:10:30.577+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'data_crime_process_dag', 'upload_pyspark_script', 'manual__2024-03-28T10:02:37.059426+00:00', '--job-id', '441', '--raw', '--subdir', 'DAGS_FOLDER/data_transformation.py', '--cfg-path', '/tmp/tmpt1zqloxv']
+[2024-03-28T10:10:30.582+0000] {standard_task_runner.py:88} INFO - Job 441: Subtask upload_pyspark_script
+[2024-03-28T10:10:30.649+0000] {task_command.py:423} INFO - Running <TaskInstance: data_crime_process_dag.upload_pyspark_script manual__2024-03-28T10:02:37.059426+00:00 [running]> on host d3d7fa608a49
+[2024-03-28T10:10:30.739+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_crime_process_dag' AIRFLOW_CTX_TASK_ID='upload_pyspark_script' AIRFLOW_CTX_EXECUTION_DATE='2024-03-28T10:02:37.059426+00:00' AIRFLOW_CTX_TRY_NUMBER='3' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-28T10:02:37.059426+00:00'
+[2024-03-28T10:10:30.798+0000] {taskinstance.py:2728} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 444, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/taskinstance.py", line 414, in _execute_callable
+    return execute_callable(context=context, **execute_callable_kwargs)
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 200, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/operators/python.py", line 217, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/data_transformation.py", line 67, in upload_to_gcs
+    blob.upload_from_filename(local_file)
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/cloud/storage/blob.py", line 2929, in upload_from_filename
+    self._handle_filename_and_upload(
+  File "/home/airflow/.local/lib/python3.8/site-packages/google/cloud/storage/blob.py", line 2797, in _handle_filename_and_upload
+    with open(filename, "rb") as file_obj:
+FileNotFoundError: [Errno 2] No such file or directory: '/dags/spark/data_transformations.py'
+[2024-03-28T10:10:30.810+0000] {taskinstance.py:1149} INFO - Marking task as UP_FOR_RETRY. dag_id=data_crime_process_dag, task_id=upload_pyspark_script, execution_date=20240328T100237, start_date=20240328T101030, end_date=20240328T101030
+[2024-03-28T10:10:30.824+0000] {standard_task_runner.py:107} ERROR - Failed to execute job 441 for task upload_pyspark_script ([Errno 2] No such file or directory: '/dags/spark/data_transformations.py'; 183)
+[2024-03-28T10:10:30.835+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 1
+[2024-03-28T10:10:30.865+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

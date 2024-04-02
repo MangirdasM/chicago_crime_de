@@ -1,0 +1,13 @@
+[2024-03-28T16:08:47.646+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_crime_process_dag.upload_pyspark_script manual__2024-03-28T10:02:37.059426+00:00 [queued]>
+[2024-03-28T16:08:47.654+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_crime_process_dag.upload_pyspark_script manual__2024-03-28T10:02:37.059426+00:00 [queued]>
+[2024-03-28T16:08:47.655+0000] {taskinstance.py:2193} INFO - Starting attempt 22 of 23
+[2024-03-28T16:08:47.678+0000] {taskinstance.py:2214} INFO - Executing <Task(PythonOperator): upload_pyspark_script> on 2024-03-28 10:02:37.059426+00:00
+[2024-03-28T16:08:47.684+0000] {standard_task_runner.py:60} INFO - Started process 4295 to run task
+[2024-03-28T16:08:47.687+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'data_crime_process_dag', 'upload_pyspark_script', 'manual__2024-03-28T10:02:37.059426+00:00', '--job-id', '467', '--raw', '--subdir', 'DAGS_FOLDER/data_transformation.py', '--cfg-path', '/tmp/tmptbz54jhy']
+[2024-03-28T16:08:47.689+0000] {standard_task_runner.py:88} INFO - Job 467: Subtask upload_pyspark_script
+[2024-03-28T16:08:47.727+0000] {task_command.py:423} INFO - Running <TaskInstance: data_crime_process_dag.upload_pyspark_script manual__2024-03-28T10:02:37.059426+00:00 [running]> on host d3d7fa608a49
+[2024-03-28T16:08:47.799+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_crime_process_dag' AIRFLOW_CTX_TASK_ID='upload_pyspark_script' AIRFLOW_CTX_EXECUTION_DATE='2024-03-28T10:02:37.059426+00:00' AIRFLOW_CTX_TRY_NUMBER='22' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-28T10:02:37.059426+00:00'
+[2024-03-28T16:08:48.323+0000] {python.py:202} INFO - Done. Returned value was: None
+[2024-03-28T16:08:48.337+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=data_crime_process_dag, task_id=upload_pyspark_script, execution_date=20240328T100237, start_date=20240328T160847, end_date=20240328T160848
+[2024-03-28T16:08:48.381+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2024-03-28T16:08:48.400+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check

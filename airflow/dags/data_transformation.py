@@ -14,16 +14,18 @@ CLUSTER_NAME = "dataproc-cluster"
 
 
 AIRFLOW_HOME = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
-PYSPARK_MAIN_FILE = "spark_transformation.py"
+PYSPARK_MAIN_FILE = "/dags/spark/data_transformations.py"
 PYSPARK_MAIN_FILE_PATH = os.path.join(AIRFLOW_HOME, PYSPARK_MAIN_FILE)
 SPARK_BQ_JAR = "spark-bigquery-latest_2.12.jar"
 SPARK_BQ_JAR_PATH = os.path.join(AIRFLOW_HOME, SPARK_BQ_JAR)
 
-JAR_URL = "https://storage.googleapis.com/spark-lib/bigquery/spark-3.5-bigquery-0.36.1.jar"
+BQ_JAR_URL = "https://github.com/GoogleCloudDataproc/spark-bigquery-connector/releases/download/0.37.0/spark-bigquery-with-dependencies_2.12-0.37.0.jar"
+GCS_JAR_URL = "https://storage.googleapis.com/hadoop-lib/gcs/gcs-connector-latest-hadoop3.jar"
 
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 BUCKET = os.environ.get("GCP_GCS_BUCKET")
 BIGQUERY_DATASET = os.environ.get("BIGQUERY_DATASET", 'chicago_crime_dataset')
+JOB_FILE_URI = ""
 
 
 
@@ -34,7 +36,9 @@ CLUSTER_GENERATOR_CONFIG = ClusterGenerator(
             idle_delete_ttl=900,                    
             master_disk_size=500,
             num_masters=1, # single node cluster
-            num_workers=0,                     
+            num_workers=0,  
+            optional_components=["JUPYTER"],
+            enable_component_gateway=True                 
         ).make()
 
 PYSPARK_JOB = {
@@ -79,27 +83,43 @@ with DAG(
     default_args=default_args
 ) as dag:
     
-    download_connector_jar_task = BashOperator(
-        task_id="download_connector_jar_task",
-        bash_command=f"wget -O {AIRFLOW_HOME}/spark-3.5-bigquery-0.36.1.jar {JAR_URL}"
+    download_BQ_connector_jar_task = BashOperator(
+        task_id="download_BQ_connector_jar_task",
+        bash_command=f"wget -O {AIRFLOW_HOME}/spark-3.5-bigquery-0.36.1.jar {BQ_JAR_URL}"
+    )
+
+    download_gcs_connector_jar_task = BashOperator(
+        task_id="download_GCS_connector_jar_task",
+        bash_command=f"wget -O {AIRFLOW_HOME}/gcs-connector-latest-hadoop3.jar {GCS_JAR_URL}"
     )
     
-    # upload_pyspark_script = PythonOperator(
-    #     task_id="upload_pyspark_script",
-    #     python_callable=upload_to_gcs,
-    #     op_kwargs={
-    #         "local_file": PYSPARK_MAIN_FILE_PATH,
-    #         "bucket": BUCKET,
-    #     },
-    # )
+    upload_pyspark_script = PythonOperator(
+        task_id="upload_pyspark_script",
+        python_callable=upload_to_gcs,
+        op_kwargs={
+            "local_file": f"{AIRFLOW_HOME}/{PYSPARK_MAIN_FILE}",
+            "bucket": BUCKET,
+            "object_name": "scripts/data_transformations.py",
+        },
+    )
 
-    upload_jar = PythonOperator(
-        task_id="upload_jar",
+    upload_BQ_jar = PythonOperator(
+        task_id="upload_BQ_jar",
         python_callable=upload_to_gcs,
         op_kwargs={
                 "bucket": BUCKET,
                 "object_name": f"connector/spark-3.5-bigquery-0.36.1.jar",
                 "local_file": f"{AIRFLOW_HOME}/spark-3.5-bigquery-0.36.1.jar",
+            },
+    )
+
+    upload_GCS_jar = PythonOperator(
+        task_id="upload_GCS_jar",
+        python_callable=upload_to_gcs,
+        op_kwargs={
+                "bucket": BUCKET,
+                "object_name": f"connector/gcs-connector-latest-hadoop3.jar",
+                "local_file": f"{AIRFLOW_HOME}/gcs-connector-latest-hadoop3.jar",
             },
     )
 
@@ -116,4 +136,7 @@ with DAG(
     # )
     
 
-    download_connector_jar_task >> upload_jar >> create_cluster_operator_task
+
+    download_BQ_connector_jar_task >> upload_BQ_jar
+    download_gcs_connector_jar_task >> upload_GCS_jar
+    [upload_BQ_jar, upload_GCS_jar] >> upload_pyspark_script >> create_cluster_operator_task

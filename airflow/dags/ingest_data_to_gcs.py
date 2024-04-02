@@ -92,12 +92,6 @@ with DAG(
                 "local_file": f"{AIRFLOW_HOME}/chicago_crime_data_{dataset_number}.parquet",
             },
         )
-
-        delete_task = BashOperator(
-            task_id=f'delete_dataset_files_{dataset_number}_task',
-            bash_command=f"rm {AIRFLOW_HOME}/chicago_crime_data_{dataset_number}.csv \
-            rm {AIRFLOW_HOME}/chicago_crime_data_{dataset_number}.parquet",
-            )
         
         bigquery_external_table_task = BigQueryCreateExternalTableOperator(
             task_id=f"bigquery_external_table_{dataset_number}_task",
@@ -124,7 +118,7 @@ with DAG(
         bash_command=f"wget -O {AIRFLOW_HOME}/chicago_comm_areas.csv https://data.cityofchicago.org/api/views/igwz-8jzy/rows.csv?accessType=DOWNLOAD",
     )
 
-    format_to_parquet_task = PythonOperator(
+    format_CommAreas_to_parquet_task = PythonOperator(
         task_id=f"format_to_parquet_CommArea_task",
         python_callable=format_to_parquet,
         op_kwargs={
@@ -132,14 +126,14 @@ with DAG(
         },
     )
         
-    local_to_gcs_task = PythonOperator(
+    local_to_gcs_CommAreas_task = PythonOperator(
         task_id=f"local_to_gcs_CommArea_task",
         python_callable=upload_to_gcs,
         op_kwargs={
             "bucket": BUCKET,
-            "object_name": f"raw/chicago_crime_data_comm_area.parquet",
-            "local_file": f"{AIRFLOW_HOME}/chicago_crime_data_comm_area.parquet",
+            "object_name": f"raw/chicago_comm_areas.parquet",
+            "local_file": f"{AIRFLOW_HOME}/chicago_comm_areas.parquet",
         },
     )
 
-    start >> download_CommAreas_task >> local_to_gcs_task >> stop
+    start >> download_CommAreas_task >> format_CommAreas_to_parquet_task >> local_to_gcs_CommAreas_task >> stop

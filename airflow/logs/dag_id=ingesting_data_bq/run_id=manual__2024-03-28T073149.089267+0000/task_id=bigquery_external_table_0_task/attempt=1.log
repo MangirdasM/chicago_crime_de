@@ -1,0 +1,15 @@
+[2024-03-28T07:34:48.799+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: ingesting_data_bq.bigquery_external_table_0_task manual__2024-03-28T07:31:49.089267+00:00 [queued]>
+[2024-03-28T07:34:48.817+0000] {taskinstance.py:1979} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: ingesting_data_bq.bigquery_external_table_0_task manual__2024-03-28T07:31:49.089267+00:00 [queued]>
+[2024-03-28T07:34:48.818+0000] {taskinstance.py:2193} INFO - Starting attempt 1 of 1
+[2024-03-28T07:34:48.842+0000] {taskinstance.py:2214} INFO - Executing <Task(BigQueryCreateExternalTableOperator): bigquery_external_table_0_task> on 2024-03-28 07:31:49.089267+00:00
+[2024-03-28T07:34:48.851+0000] {standard_task_runner.py:60} INFO - Started process 380 to run task
+[2024-03-28T07:34:48.857+0000] {standard_task_runner.py:87} INFO - Running: ['***', 'tasks', 'run', 'ingesting_data_bq', 'bigquery_external_table_0_task', 'manual__2024-03-28T07:31:49.089267+00:00', '--job-id', '420', '--raw', '--subdir', 'DAGS_FOLDER/ingest_data_to_gcs.py', '--cfg-path', '/tmp/tmpv7_x8wlr']
+[2024-03-28T07:34:48.859+0000] {standard_task_runner.py:88} INFO - Job 420: Subtask bigquery_external_table_0_task
+[2024-03-28T07:34:48.931+0000] {task_command.py:423} INFO - Running <TaskInstance: ingesting_data_bq.bigquery_external_table_0_task manual__2024-03-28T07:31:49.089267+00:00 [running]> on host d3d7fa608a49
+[2024-03-28T07:34:49.213+0000] {taskinstance.py:2510} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='ingesting_data_bq' AIRFLOW_CTX_TASK_ID='bigquery_external_table_0_task' AIRFLOW_CTX_EXECUTION_DATE='2024-03-28T07:31:49.089267+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2024-03-28T07:31:49.089267+00:00'
+[2024-03-28T07:34:49.225+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2024-03-28T07:34:49.229+0000] {connection.py:269} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2024-03-28T07:34:49.237+0000] {base.py:83} INFO - Using connection ID 'google_cloud_default' for task execution.
+[2024-03-28T07:34:50.366+0000] {taskinstance.py:1149} INFO - Marking task as SUCCESS. dag_id=ingesting_data_bq, task_id=bigquery_external_table_0_task, execution_date=20240328T073149, start_date=20240328T073448, end_date=20240328T073450
+[2024-03-28T07:34:50.570+0000] {local_task_job_runner.py:234} INFO - Task exited with return code 0
+[2024-03-28T07:34:50.621+0000] {taskinstance.py:3309} INFO - 0 downstream tasks scheduled from follow-on schedule check
